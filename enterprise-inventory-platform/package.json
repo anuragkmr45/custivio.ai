@@ -1,0 +1,41 @@
+{
+  "name": "enterprise-inventory-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.25.0",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @enterprise-inventory/web dev",
+    "build": "pnpm --filter @enterprise-inventory/web build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "db:generate": "pnpm --filter @enterprise-inventory/db db:generate",
+    "db:migrate": "pnpm --filter @enterprise-inventory/db db:migrate",
+    "db:seed": "pnpm --filter @enterprise-inventory/db db:seed",
+    "docker:dev": "docker compose -f infra/docker-compose.dev.yml up -d",
+    "check:forbidden": "node scripts/check-forbidden-deps.mjs",
+    "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm check:forbidden"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "@types/node": "24.10.1",
+    "drizzle-kit": "latest",
+    "eslint": "9.39.1",
+    "eslint-import-resolver-typescript": "latest",
+    "eslint-plugin-import": "latest",
+    "globals": "latest",
+    "prettier": "3.6.2",
+    "tsx": "latest",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.47.0",
+    "vitest": "4.0.8"
+  }
+}
