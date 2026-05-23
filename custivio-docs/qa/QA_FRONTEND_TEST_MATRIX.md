@@ -1,0 +1,19 @@
+# QA Frontend Test Matrix
+
+Environment: local Docker QA  
+Frontend base: `http://localhost:8081`  
+API base: `http://localhost:3003`  
+Status values: `PENDING`, `PASS`, `FAIL`, `BLOCKED`, `ACCEPTED_RISK`
+
+| ID | UI area | Persona | Scenario | Expected result | Status | Evidence | Defect ID |
+|---|---|---|---|---|---|---|---|
+| QA-UI-001 | Login/app shell | All | Login, refresh, logout, offline/API-error handling | Friendly and stable shell behavior | PASS | Browser login as admin passed; E2E covered logout and `401`; previous offline-backend message was verified in dev gate. |  |
+| QA-UI-010 | Dashboard/status | Admin | Dashboard and status views | Real data, dependency status, docs link | PASS | Browser dashboard rendered UAT Administrator and 19 permissions; E2E route/status flow passed. |  |
+| QA-UI-020 | Admin | Admin | Users, roles, assignments | Admin workflows complete | PASS | E2E covered admin API availability; lower-role `403` check passed for manager/store/auditor. |  |
+| QA-UI-030 | Master data | Manager/admin | Catalog and location hierarchy | Master data workflows complete | PASS | E2E catalog and location flow passed against QA API. |  |
+| QA-UI-040 | Assets/files | Manager/admin | Asset create/edit/detail and attachment flow | Registry and authorized file flows complete | PASS | E2E asset create/detail/lifecycle and attachment upload/download/delete passed. | QA-FE-001 |
+| QA-UI-050 | Inventory | Store/admin | Stock units/items/movements | Idempotent stock workflow complete | PASS | E2E stock movement passed; QA DB tests passed idempotency coverage. |  |
+| QA-UI-060 | Custody/transfers | Manager/admin | Custody and transfer workflow | Role-aware approvals work | PASS | E2E custody and transfers passed. |  |
+| QA-UI-070 | Maintenance | Manager/admin | Tickets, status, warranties | Maintenance workflow complete | PASS | E2E maintenance and warranty passed. |  |
+| QA-UI-080 | Compliance | Auditor/admin | Audits, imports, reports, exports | Job and report workflows complete | PASS | E2E audits/imports/reports/exports passed with worker-backed QA stack. |  |
+| QA-UI-090 | Permissions/responsive | Store/auditor | Access denied, hidden nav, mobile/desktop | Permission and layout behavior correct | PASS | Persona API check passed; Playwright mobile viewport `390x844` rendered dashboard; clean browser console after login had 0 errors and 0 warnings. |  |

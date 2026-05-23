@@ -1,0 +1,5 @@
+tenants:
+  - id: example-org
+    displayName: Example Organization
+    allowedSources:
+      - <ORG_PRIVATE_CIDR>

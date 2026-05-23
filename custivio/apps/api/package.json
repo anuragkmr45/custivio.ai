@@ -1,0 +1,38 @@
+{
+  "name": "@custivio/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "worker": "tsx src/workers/worker.ts",
+    "worker:dev": "tsx watch src/workers/worker.ts -- --once",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --root ../.. apps/api/src/tests",
+    "test:workers": "vitest run --root ../.. apps/api/src/tests/worker-runtime.test.ts"
+  },
+  "dependencies": {
+    "@custivio/auth": "workspace:*",
+    "@custivio/cache": "workspace:*",
+    "@custivio/core": "workspace:*",
+    "@custivio/db": "workspace:*",
+    "@custivio/storage": "workspace:*",
+    "@custivio/telemetry": "workspace:*",
+    "@fastify/cookie": "latest",
+    "@fastify/cors": "latest",
+    "@fastify/formbody": "latest",
+    "@fastify/helmet": "latest",
+    "@fastify/multipart": "latest",
+    "@fastify/swagger": "latest",
+    "@fastify/swagger-ui": "latest",
+    "fastify": "latest",
+    "fastify-plugin": "latest"
+  },
+  "devDependencies": {
+    "tsx": "latest",
+    "typescript": "5.9.3",
+    "vitest": "4.0.8"
+  }
+}

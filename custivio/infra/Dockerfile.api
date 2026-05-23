@@ -1,0 +1,28 @@
+FROM node:24-bookworm-slim AS deps
+
+WORKDIR /app
+
+RUN corepack enable
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
+COPY apps/api/package.json apps/api/package.json
+COPY packages packages
+
+RUN pnpm install --frozen-lockfile
+
+FROM node:24-bookworm-slim AS runtime
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN corepack enable && useradd --create-home --shell /usr/sbin/nologin appuser
+
+COPY --from=deps /app /app
+COPY apps/api apps/api
+
+USER appuser
+
+EXPOSE 3000
+
+CMD ["pnpm", "--filter", "@custivio/api", "start"]

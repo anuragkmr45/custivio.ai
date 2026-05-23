@@ -1,0 +1,47 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=${PROMETHEUS_RETENTION:-30d}
+    volumes:
+      - /srv/shared-observability/prometheus:/prometheus
+      - ./prometheus:/etc/prometheus:ro
+      - ../orgs:/etc/prometheus/orgs:ro
+    ports:
+      - "${OBS_PRIVATE_IP:-127.0.0.1}:9090:9090"
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    restart: unless-stopped
+    env_file:
+      - ${GRAFANA_ENV_FILE:-/etc/shared-observability/grafana.env}
+    volumes:
+      - /srv/shared-observability/grafana:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards/base:ro
+      - ../orgs:/var/lib/grafana/orgs:ro
+    ports:
+      - "${GRAFANA_BIND_IP:-127.0.0.1}:3000:3000"
+
+  loki:
+    image: grafana/loki:latest
+    restart: unless-stopped
+    command: ["-config.file=/etc/loki/loki.yml"]
+    volumes:
+      - /srv/shared-observability/loki:/loki
+      - ./loki/loki.yml:/etc/loki/loki.yml:ro
+    ports:
+      - "${OBS_PRIVATE_IP:-127.0.0.1}:3100:3100"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    restart: unless-stopped
+    command: ["--config=/etc/otelcol/collector.yml"]
+    volumes:
+      - ./otel/collector.yml:/etc/otelcol/collector.yml:ro
+    ports:
+      - "${OBS_PRIVATE_IP:-127.0.0.1}:4317:4317"
+      - "${OBS_PRIVATE_IP:-127.0.0.1}:4318:4318"

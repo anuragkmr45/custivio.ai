@@ -1,0 +1,21 @@
+{
+  "name": "@custivio/telemetry",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@custivio/config": "workspace:*",
+    "@opentelemetry/api": "latest",
+    "prom-client": "latest"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

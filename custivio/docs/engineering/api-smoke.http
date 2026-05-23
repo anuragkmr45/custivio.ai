@@ -1,0 +1,92 @@
+@baseUrl = http://localhost:3001
+@tenantSlug = default
+@adminEmail = {{$dotenv UAT_ADMIN_EMAIL}}
+@password = {{$dotenv UAT_SEED_PASSWORD}}
+
+### Health live
+GET {{baseUrl}}/api/health/live
+
+### Health ready
+GET {{baseUrl}}/api/health/ready
+
+### OpenAPI
+GET {{baseUrl}}/api/openapi.json
+
+### Swagger UI
+GET {{baseUrl}}/api/docs
+
+### Login with local-only UAT administrator
+POST {{baseUrl}}/api/auth/login
+accept: application/json
+content-type: application/json
+
+{
+  "tenantSlug": "{{tenantSlug}}",
+  "email": "{{adminEmail}}",
+  "password": "{{password}}"
+}
+
+### Current session
+GET {{baseUrl}}/api/auth/me
+accept: application/json
+
+### List catalog types
+GET {{baseUrl}}/api/catalog/types
+accept: application/json
+
+### List locations
+GET {{baseUrl}}/api/locations/sites
+accept: application/json
+
+### List seeded assets
+GET {{baseUrl}}/api/assets?q=UAT
+accept: application/json
+
+### List stock
+GET {{baseUrl}}/api/stock/items
+accept: application/json
+
+### List custody assignments
+GET {{baseUrl}}/api/custody/checkouts
+accept: application/json
+
+### List maintenance tickets
+GET {{baseUrl}}/api/maintenance/tickets
+accept: application/json
+
+### List report exports
+GET {{baseUrl}}/api/reports/exports
+accept: application/json
+
+### Create import preview job
+POST {{baseUrl}}/api/imports/jobs
+accept: application/json
+content-type: application/json
+
+{
+  "importType": "assets",
+  "originalFilename": "http-smoke-assets.csv",
+  "idempotencyKey": "http-smoke-import-001",
+  "rows": [
+    {
+      "assetTag": "HTTP-SMOKE-001",
+      "serialNumber": "HTTP-SMOKE-SN-001"
+    }
+  ],
+  "metadata": {
+    "source": "api-smoke.http"
+  }
+}
+
+### Create export job
+POST {{baseUrl}}/api/reports/exports
+accept: application/json
+content-type: application/json
+
+{
+  "exportType": "assets",
+  "idempotencyKey": "http-smoke-export-001",
+  "filters": {
+    "status": "active"
+  }
+}

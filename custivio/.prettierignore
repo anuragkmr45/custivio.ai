@@ -1,0 +1,15 @@
+node_modules
+.next
+**/.next
+dist
+**/dist
+coverage
+*.tsbuildinfo
+*.tsbuildinfo.*
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+infra/grafana/dashboards/*.json
+*.http
+_cleanup_review
+_cleanup_review/**

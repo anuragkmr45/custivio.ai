@@ -1,0 +1,20 @@
+{
+  "name": "@custivio/cache",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@custivio/config": "workspace:*",
+    "@valkey/valkey-glide": "latest"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    env_file:
+      - ${DATA_ENV_FILE:-/etc/custivio-data/data-vm.env}
+    command: ["postgres", "-c", "listen_addresses=*"]
+    ports:
+      - "${DATA_PRIVATE_IP:-127.0.0.1}:5432:5432"
+    volumes:
+      - /srv/custivio-data/postgres:/var/lib/postgresql/data
+      - ./hardening/postgres-pg-hba.example.conf:/docker-entrypoint-initdb.d/pg_hba.example.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    env_file:
+      - ${DATA_ENV_FILE:-/etc/custivio-data/data-vm.env}
+    command: ["server", "/data", "--console-address", ":9001"]
+    ports:
+      - "${DATA_PRIVATE_IP:-127.0.0.1}:9000:9000"
+      - "${DATA_PRIVATE_IP:-127.0.0.1}:9001:9001"
+    volumes:
+      - /srv/custivio-data/minio:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    restart: unless-stopped
+    env_file:
+      - ${DATA_ENV_FILE:-/etc/custivio-data/data-vm.env}
+    command:
+      ["sh", "-c", "valkey-server --bind 0.0.0.0 --appendonly yes --requirepass $$VALKEY_PASSWORD"]
+    ports:
+      - "${DATA_PRIVATE_IP:-127.0.0.1}:6379:6379"
+    volumes:
+      - /srv/custivio-data/valkey:/data
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli -a $$VALKEY_PASSWORD ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10

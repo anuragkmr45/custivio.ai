@@ -1,0 +1,25 @@
+- targets:
+    - <APP_PRIVATE_IP>:3000
+  labels:
+    org: example-org
+    software: custivio
+    environment: staging
+    role: api
+    instance: custivio-api-1
+    metrics_path: /api/metrics
+- targets:
+    - <APP_PRIVATE_IP>:9100
+  labels:
+    org: example-org
+    software: custivio
+    environment: staging
+    role: app-lxc
+    instance: custivio-app-1
+- targets:
+    - <DATA_PRIVATE_IP>:9100
+  labels:
+    org: example-org
+    software: custivio
+    environment: staging
+    role: data-vm
+    instance: custivio-data-1

@@ -1,5 +1,5 @@
 // eslint.config.mjs
-// Governance-first ESLint config for enterprise-inventory-platform.
+// Governance-first ESLint config for custivio.
 // Codex may adjust package names/paths during implementation, but must preserve the boundary intent.
 
 import js from "@eslint/js";

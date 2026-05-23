@@ -1,0 +1,21 @@
+{
+  email admin@example.internal
+}
+
+custivio.example.internal {
+  encode zstd gzip
+  root * /opt/custivio/current/frontend
+
+  handle /api/* {
+    reverse_proxy 127.0.0.1:3000
+  }
+
+  handle {
+    try_files {path} /index.html
+    file_server
+  }
+
+  log {
+    output file /var/log/custivio/reverse-proxy/caddy-access.log
+  }
+}

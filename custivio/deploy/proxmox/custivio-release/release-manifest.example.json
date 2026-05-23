@@ -1,0 +1,13 @@
+{
+  "software": "custivio",
+  "version": "<version>",
+  "builtAt": "<iso-date>",
+  "gitCommit": "<commit-or-unknown>",
+  "requiresDbMigration": true,
+  "frontendIncluded": true,
+  "backendIncluded": true,
+  "workerIncluded": true,
+  "minimumNodeVersion": "22",
+  "artifactChecksums": {},
+  "rollbackNotes": "Normal rollback switches /opt/custivio/current. DB rollback requires manual DBA approval."
+}

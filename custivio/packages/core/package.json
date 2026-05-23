@@ -1,0 +1,23 @@
+{
+  "name": "@custivio/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@custivio/auth": "workspace:*",
+    "@custivio/cache": "workspace:*",
+    "@custivio/db": "workspace:*",
+    "@custivio/storage": "workspace:*",
+    "@custivio/telemetry": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

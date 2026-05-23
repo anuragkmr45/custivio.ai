@@ -1,0 +1,16 @@
+apiVersion: 1
+
+providers:
+  - name: base
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards/base
+  - name: orgs
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/orgs
+      foldersFromFilesStructure: true

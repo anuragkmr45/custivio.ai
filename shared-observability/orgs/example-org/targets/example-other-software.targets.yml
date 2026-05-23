@@ -1,0 +1,8 @@
+- targets:
+    - <OTHER_APP_PRIVATE_IP>:8080
+  labels:
+    org: example-org
+    software: example-other-software
+    environment: staging
+    role: api
+    instance: example-other-api-1

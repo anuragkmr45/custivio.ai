@@ -1,0 +1,5 @@
+grafana.example.internal {
+  reverse_proxy 127.0.0.1:3000
+}
+
+# Prometheus, Loki, and OTel Collector are intentionally not exposed publicly.

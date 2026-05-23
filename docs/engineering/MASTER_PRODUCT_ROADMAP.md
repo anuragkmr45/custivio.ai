@@ -1,10 +1,10 @@
-# Master Product Roadmap — Enterprise Inventory Platform
+# Master Product Roadmap — Custivio Platform
 
 This file is the single source of truth for implementation phases.
 
 ## Product goal
 
-Build an enterprise-grade, on-prem and air-gapped inventory and IT asset management platform for computers, servers, network devices, racks, cables, chips, spares, consumables, accessories, licenses, maintenance, audits, and reports.
+Build an production-grade, on-prem and air-gapped inventory and IT asset management platform for computers, servers, network devices, racks, cables, chips, spares, consumables, accessories, licenses, maintenance, audits, and reports.
 
 ## Phase status key
 
@@ -484,7 +484,7 @@ Make the system pleasant, clear and production-worthy for real users.
 
 ## Goal
 
-Prepare for enterprise-scale use.
+Prepare for organization-scale use.
 
 ## Tasks
 

@@ -1,0 +1,24 @@
+groups:
+  - name: common
+    rules:
+      - alert: TargetDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Prometheus target is down
+      - alert: DiskSpaceLow
+        expr: node_filesystem_avail_bytes / node_filesystem_size_bytes < 0.10
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Disk free space below 10 percent
+      - alert: BackupAgeTooOld
+        expr: time() - backup_last_success_timestamp_seconds > 86400
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: Backup age is too old

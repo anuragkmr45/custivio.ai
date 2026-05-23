@@ -15,7 +15,7 @@ Use this after every feature and phase.
 - [ ] User can cancel/back out safely.
 - [ ] Table filters/search are useful.
 
-## Enterprise inventory fit
+## Organization inventory fit
 
 - [ ] Supports real hardware inventory use.
 - [ ] Supports serial-number or asset-tag tracking where required.
@@ -59,5 +59,5 @@ Use this after every feature and phase.
 - [ ] Can this feature be demoed in less than 2 minutes?
 - [ ] Would a new user understand it without training?
 - [ ] Does the feature reduce manual Excel work?
-- [ ] Does the feature support enterprise accountability?
+- [ ] Does the feature support organization accountability?
 - [ ] Is the workflow complete enough for QA testing?

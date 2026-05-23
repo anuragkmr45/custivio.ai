@@ -1,0 +1,23 @@
+# Environment Variables
+
+| Variable                    | Node/unit     | Secret | Example                                                                 | Default    | Required | Restart required     | Risk if wrong                           |
+| --------------------------- | ------------- | ------ | ----------------------------------------------------------------------- | ---------- | -------- | -------------------- | --------------------------------------- |
+| NODE_ENV                    | API/worker    | No     | production                                                              | production | Yes      | Yes                  | Wrong runtime behavior                  |
+| API_HOST                    | API           | No     | 127.0.0.1                                                               | 127.0.0.1  | Yes      | Yes                  | API may bind public interface           |
+| API_PORT                    | API           | No     | 3000                                                                    | 3000       | Yes      | Yes                  | Proxy health fails                      |
+| APP_BASE_URL                | API           | No     | https://custivio.example.internal                                       | none       | Yes      | Yes                  | Bad links/cookies                       |
+| CORS_ALLOWED_ORIGINS        | API           | No     | https://custivio.example.internal                                       | none       | Yes      | Yes                  | Browser API calls fail                  |
+| DATABASE_URL                | API/worker    | Yes    | postgresql://custivio_app:<password>@<data-vm-private-ip>:5432/custivio | none       | Yes      | Yes                  | App cannot reach DB or may use wrong DB |
+| VALKEY_HOST                 | API/worker    | No     | <data-vm-private-ip>                                                    | localhost  | Yes      | Yes                  | Queue/idempotency failure               |
+| VALKEY_PORT                 | API/worker    | No     | 6379                                                                    | 6379       | Yes      | Yes                  | Valkey unreachable                      |
+| VALKEY_PASSWORD             | API/worker    | Yes    | <strong-valkey-password>                                                | none       | Yes      | Yes                  | Valkey auth failure                     |
+| MINIO_ENDPOINT              | API/worker    | No     | http://<data-vm-private-ip>:9000                                        | none       | Yes      | Yes                  | Upload/download failure                 |
+| MINIO_ACCESS_KEY            | API/worker    | Yes    | <app-access-key>                                                        | none       | Yes      | Yes                  | Storage auth failure                    |
+| MINIO_SECRET_KEY            | API/worker    | Yes    | <app-secret-key>                                                        | none       | Yes      | Yes                  | Storage auth failure                    |
+| MINIO_BUCKET                | API/worker    | No     | custivio                                                                | custivio   | Yes      | Yes                  | Objects stored in wrong bucket          |
+| OTEL_EXPORTER_OTLP_ENDPOINT | API/worker    | No     | http://<observability-private-ip>:4318                                  | none       | Optional | Yes                  | Traces/metrics missing                  |
+| POSTGRES_DB                 | Data VM       | No     | custivio                                                                | custivio   | Yes      | Data service restart | DB init mismatch                        |
+| POSTGRES_USER               | Data VM       | No     | custivio_app                                                            | custivio   | Yes      | Data service restart | Wrong app DB user                       |
+| POSTGRES_PASSWORD           | Data VM       | Yes    | <strong-db-password>                                                    | none       | Yes      | Data service restart | DB auth failure                         |
+| GRAFANA_ADMIN_USER          | Observability | Yes    | admin                                                                   | none       | Yes      | Grafana restart      | Admin login failure                     |
+| GRAFANA_ADMIN_PASSWORD      | Observability | Yes    | <strong-password>                                                       | none       | Yes      | Grafana restart      | Security risk if default                |

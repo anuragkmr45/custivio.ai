@@ -1,0 +1,18 @@
+# QA API Test Matrix
+
+Environment: local Docker QA  
+API base: `http://localhost:3003`  
+Status values: `PENDING`, `PASS`, `FAIL`, `BLOCKED`, `ACCEPTED_RISK`
+
+| ID | API group | Scenario | Expected result | Status | Evidence | Defect ID |
+|---|---|---|---|---|---|---|
+| QA-API-001 | Health/docs | Live, ready, ops, metrics, OpenAPI, Swagger | Public status and docs endpoints available | PASS | `API_BASE_URL=http://127.0.0.1:3003 pnpm smoke:api` passed; OpenAPI reported 44 paths. |  |
+| QA-API-010 | Auth/session | Login, `/me`, logout, invalid credentials | Cookie auth works and errors are typed | PASS | E2E passed backend login, session restore with 19 permissions, logout, and post-logout `401`. |  |
+| QA-API-020 | Admin | Users, roles, assignments | Admin workflows work; lower roles get `403` | PASS | Lower-role API check: manager/store/auditor login returned `200`; `/api/admin/users` returned `403`. |  |
+| QA-API-030 | Catalog/locations | Master data and hierarchy | CRUD/archive and hierarchy work | PASS | E2E catalog/location flow passed: 15 asset types and 1 site read from seeded QA API. |  |
+| QA-API-040 | Assets/attachments | Registry, lifecycle, upload/download/delete | Asset and file workflows work through API | PASS | E2E asset list/search/detail/create, lifecycle, attachment upload/download/delete passed. |  |
+| QA-API-050 | Stock | Units, items, movements, idempotency | Ledger, replay, conflict, insufficient stock work | PASS | QA DB-backed tests passed 82/82; E2E stock movement passed with generated idempotency key. |  |
+| QA-API-060 | Custody/transfers | Checkout, checkin, handover, decisions | Workflow state changes work | PASS | E2E custody and transfer flow passed against QA API. |  |
+| QA-API-070 | Maintenance/warranty | Ticket, status, warranty | Maintenance workflows work | PASS | E2E maintenance ticket/status and warranty flow passed. |  |
+| QA-API-080 | Audits/imports/reports | Campaigns, scans, jobs, exports, downloads | Worker-backed/report workflows work | PASS | QA worker running; E2E audit, import, export, report filters, and export download passed. |  |
+| QA-API-090 | Deployment | CORS, cookies, storage, request IDs | Browser-compatible deployed API behavior | PASS | Browser login from `http://localhost:8081` to `http://localhost:3003` passed with cookie session; DB tests passed with QA MinIO/Valkey; smoke covered request IDs/status endpoints. | QA-ENV-003 |

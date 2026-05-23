@@ -1,0 +1,28 @@
+[Unit]
+Description=Custivio Worker
+After=network-online.target custivio-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=inventory
+Group=inventory
+WorkingDirectory=/opt/custivio/current/api
+EnvironmentFile=/etc/custivio/custivio.env
+ExecStart=/usr/bin/env pnpm --filter @custivio/api worker -- --queue all --interval-ms 5000
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/custivio/shared /var/log/custivio
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
