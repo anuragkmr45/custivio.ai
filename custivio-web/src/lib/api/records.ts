@@ -4,21 +4,10 @@ export type ApiRecord = {
 };
 
 export type CatalogResource =
-  | "categories"
-  | "types"
-  | "custom-fields"
-  | "manufacturers"
-  | "models"
-  | "vendors";
+  "categories" | "types" | "custom-fields" | "manufacturers" | "models" | "vendors";
 
 export type LocationResource =
-  | "sites"
-  | "buildings"
-  | "floors"
-  | "rooms"
-  | "racks"
-  | "shelves"
-  | "bins";
+  "sites" | "buildings" | "floors" | "rooms" | "racks" | "shelves" | "bins";
 
 export const catalogResources: CatalogResource[] = [
   "categories",

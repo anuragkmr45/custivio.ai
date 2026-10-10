@@ -15,6 +15,7 @@
     "build:api": "pnpm --filter @custivio/api build",
     "start": "pnpm --filter @custivio/api start",
     "start:api": "pnpm --filter @custivio/api start",
+    "start:cloud": "pnpm --filter @custivio/db db:migrate && pnpm --filter @custivio/api start",
     "test:api": "pnpm --filter @custivio/api test",
     "worker": "pnpm --filter @custivio/api worker",
     "worker:dev": "pnpm --filter @custivio/api worker:dev",

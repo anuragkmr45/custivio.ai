@@ -121,9 +121,7 @@ function UsersPage() {
           displayName: String(form.get("displayName") ?? ""),
           jobTitle: String(form.get("jobTitle") ?? "") || undefined,
           status: String(form.get("status") ?? editUser.status) as
-            | "active"
-            | "disabled"
-            | "invited",
+            "active" | "disabled" | "invited",
         }),
       ).user;
     },

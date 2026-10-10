@@ -7,10 +7,36 @@ describe("parseEnv", () => {
     const env = parseEnv({});
 
     expect(env.NODE_ENV).toBe("development");
+    expect(env.COOKIE_SAME_SITE).toBe("lax");
     expect(env.VALKEY_PORT).toBe(6379);
+    expect(env.VALKEY_PASSWORD).toBeUndefined();
+    expect(env.VALKEY_USE_TLS).toBe(false);
     expect(env.MINIO_BUCKET).toBe("custivio");
+    expect(env.RUN_WORKER_IN_API).toBe(false);
     expect(env.UAT_ADMIN_EMAIL).toBeUndefined();
     expect(env.UAT_SEED_PASSWORD).toBeUndefined();
+  });
+
+  it("parses cloud database, Valkey, and embedded worker settings", () => {
+    const env = parseEnv({
+      DATABASE_POOL_MAX: "4",
+      DATABASE_SSL: "true",
+      COOKIE_SAME_SITE: "none",
+      VALKEY_HOST: "example.upstash.io",
+      VALKEY_PORT: "6379",
+      VALKEY_PASSWORD: "secret-token",
+      VALKEY_USE_TLS: "true",
+      RUN_WORKER_IN_API: "true",
+      WORKER_INTERVAL_MS: "3000",
+    });
+
+    expect(env.DATABASE_POOL_MAX).toBe(4);
+    expect(env.DATABASE_SSL).toBe(true);
+    expect(env.COOKIE_SAME_SITE).toBe("none");
+    expect(env.VALKEY_PASSWORD).toBe("secret-token");
+    expect(env.VALKEY_USE_TLS).toBe(true);
+    expect(env.RUN_WORKER_IN_API).toBe(true);
+    expect(env.WORKER_INTERVAL_MS).toBe(3000);
   });
 
   it("parses local UAT seed credentials from environment", () => {

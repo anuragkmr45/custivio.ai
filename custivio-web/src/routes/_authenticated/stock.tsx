@@ -78,10 +78,7 @@ function StockPage() {
         await createStockMovement({
           stockItemId: String(form.get("stockItemId") ?? ""),
           movementType: String(form.get("movementType") ?? "receive") as
-            | "receive"
-            | "issue"
-            | "transfer"
-            | "adjust",
+            "receive" | "issue" | "transfer" | "adjust",
           quantity: Number(form.get("quantity") ?? 0),
           fromLocationKey: String(form.get("fromLocationKey") ?? "") || undefined,
           toLocationKey: String(form.get("toLocationKey") ?? "") || undefined,

@@ -6,7 +6,7 @@ import { runImportWorkerOnce } from "./import-worker";
 
 import type { WorkerRunResult } from "./job-runner";
 
-type WorkerMode = "all" | "exports" | "imports";
+export type WorkerMode = "all" | "exports" | "imports";
 
 function resultLogFields(result: WorkerRunResult): {
   requestId?: string;
@@ -78,7 +78,7 @@ async function runSingleQueue(mode: Exclude<WorkerMode, "all">): Promise<void> {
   });
 }
 
-async function runOnce(mode: WorkerMode): Promise<void> {
+export async function runOnce(mode: WorkerMode): Promise<void> {
   if (mode === "all") {
     await runSingleQueue("imports");
     await runSingleQueue("exports");

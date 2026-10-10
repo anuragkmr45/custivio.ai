@@ -1,12 +1,17 @@
 import { logger } from "@custivio/telemetry";
 
 import { buildApiApp } from "./app";
+import { startEmbeddedWorker } from "./workers/embedded-worker";
 
 const app = await buildApiApp();
 const env = app.appConfig;
+let embeddedWorker: ReturnType<typeof startEmbeddedWorker> | undefined;
+
+app.addHook("onClose", async () => embeddedWorker?.stop());
 
 try {
   await app.listen({ host: env.API_HOST, port: env.API_PORT });
+  embeddedWorker = env.RUN_WORKER_IN_API ? startEmbeddedWorker(env.WORKER_INTERVAL_MS) : undefined;
   const localBaseUrl = buildLocalBaseUrl(env.API_HOST, env.API_PORT);
   logger.info("Fastify API started", {
     context: {

@@ -3,6 +3,10 @@ import { dirname, join } from "node:path";
 
 import { z } from "zod";
 
+const booleanFromEnvironment = z
+  .union([z.boolean(), z.enum(["true", "false"])])
+  .transform((value) => value === true || value === "true");
+
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   APP_NAME: z.string().min(1).default("custivio"),
@@ -25,10 +29,16 @@ const envSchema = z.object({
         "http://127.0.0.1:5177",
       ].join(","),
     ),
-  COOKIE_SECURE: z.coerce.boolean().optional(),
+  COOKIE_SECURE: booleanFromEnvironment.optional(),
+  COOKIE_SAME_SITE: z.enum(["lax", "none", "strict"]).default("lax"),
   DATABASE_URL: z.url().default("postgresql://custivio:custivio_dev@localhost:5432/custivio"),
+  DATABASE_POOL_MAX: z.coerce.number().int().positive().default(10),
+  DATABASE_SSL: booleanFromEnvironment.default(false),
   VALKEY_HOST: z.string().min(1).default("localhost"),
   VALKEY_PORT: z.coerce.number().int().positive().default(6379),
+  VALKEY_USERNAME: z.string().min(1).optional(),
+  VALKEY_PASSWORD: z.string().min(1).optional(),
+  VALKEY_USE_TLS: booleanFromEnvironment.default(false),
   MINIO_ENDPOINT: z.url().default("http://localhost:9000"),
   MINIO_REGION: z.string().min(1).default("us-east-1"),
   MINIO_ACCESS_KEY: z.string().min(1).default("minioadmin"),
@@ -38,6 +48,8 @@ const envSchema = z.object({
   OTEL_SERVICE_NAME: z.string().min(1).default("custivio-api"),
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
   METRICS_PREFIX: z.string().min(1).default("custivio_"),
+  RUN_WORKER_IN_API: booleanFromEnvironment.default(false),
+  WORKER_INTERVAL_MS: z.coerce.number().int().min(1000).default(5000),
   DEV_SEED_TENANT_NAME: z.string().min(1).default("Default Tenant"),
   UAT_ADMIN_EMAIL: z.email().optional(),
   UAT_MANAGER_EMAIL: z.email().optional(),

@@ -10,9 +10,10 @@ let database: NodePgDatabase<typeof schema> | undefined;
 export function getPostgresPool(): Pool {
   pool ??= new Pool({
     connectionString: getEnv().DATABASE_URL,
-    max: 10,
+    max: getEnv().DATABASE_POOL_MAX,
     idleTimeoutMillis: 30_000,
     connectionTimeoutMillis: getEnv().HEALTHCHECK_TIMEOUT_MS,
+    ...(getEnv().DATABASE_SSL ? { ssl: { rejectUnauthorized: false } } : {}),
   });
 
   return pool;

@@ -1,0 +1,74 @@
+services:
+  - type: web
+    name: custivio-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./custivio/infra/Dockerfile.api
+    dockerContext: ./custivio
+    dockerCommand: pnpm start:cloud
+    initialDeployHook: pnpm db:bootstrap-admin
+    healthCheckPath: /api/health/live
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_NAME
+        value: custivio-cloud-demo
+      - key: APP_BASE_URL
+        sync: false
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: API_PORT
+        value: 10000
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: COOKIE_SAME_SITE
+        value: none
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_POOL_MAX
+        value: "4"
+      - key: DATABASE_SSL
+        value: "true"
+      - key: VALKEY_HOST
+        sync: false
+      - key: VALKEY_PORT
+        sync: false
+      - key: VALKEY_PASSWORD
+        sync: false
+      - key: VALKEY_USE_TLS
+        value: "true"
+      - key: MINIO_ENDPOINT
+        sync: false
+      - key: MINIO_REGION
+        sync: false
+      - key: MINIO_ACCESS_KEY
+        sync: false
+      - key: MINIO_SECRET_KEY
+        sync: false
+      - key: MINIO_BUCKET
+        value: custivio
+      - key: RUN_WORKER_IN_API
+        value: "true"
+      - key: WORKER_INTERVAL_MS
+        value: "30000"
+      - key: HEALTHCHECK_TIMEOUT_MS
+        value: "5000"
+      - key: OTEL_SERVICE_NAME
+        value: custivio-api-cloud-demo
+      - key: LOG_LEVEL
+        value: info
+      - key: METRICS_PREFIX
+        value: custivio_
+      - key: BOOTSTRAP_TENANT_SLUG
+        sync: false
+      - key: BOOTSTRAP_TENANT_NAME
+        sync: false
+      - key: BOOTSTRAP_ADMIN_EMAIL
+        sync: false
+      - key: BOOTSTRAP_ADMIN_NAME
+        sync: false
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false

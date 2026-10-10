@@ -22,7 +22,7 @@ export function setSessionCookie(
 ): void {
   reply.setCookie(SESSION_COOKIE_NAME, value, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: env.COOKIE_SAME_SITE,
     secure: shouldUseSecureCookie(request, env),
     path: "/",
     expires,
@@ -36,7 +36,7 @@ export function clearSessionCookie(
 ): void {
   reply.setCookie(SESSION_COOKIE_NAME, "", {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: env.COOKIE_SAME_SITE,
     secure: shouldUseSecureCookie(request, env),
     path: "/",
     maxAge: 0,
