@@ -204,3 +204,19 @@ Phase 9 is complete. No new files were deleted during final cleanup; `apps/web` 
 | 2026-05-16 | `pnpm check`                                                  | PASS   | Final post-audit typecheck, lint, format, non-DB tests, and forbidden dependency passed. |
 
 Phase 10 smoke verification is complete. The final audit is written to `docs/engineering/BACKEND_DB_INFRA_FINAL_READINESS_AUDIT_AFTER_COMPLETION.md`.
+
+### Cloud Showcase Data - 2026-10-10
+
+| Command or check                                       | Result | Notes                                                                                                      |
+| ------------------------------------------------------ | ------ | ---------------------------------------------------------------------------------------------------------- |
+| `pnpm db:migrate`                                      | PASS   | Applied existing Custivio migrations to the configured Supabase PostgreSQL database.                       |
+| `pnpm db:seed:showcase`                                | PASS   | Seeded realistic fictional organization, users, locations, assets, operations, stock, audits, and jobs.    |
+| Second `pnpm db:seed:showcase` run                     | PASS   | Core counts remained stable, confirming idempotency.                                                       |
+| Authenticated Render API read smoke                    | PASS   | 28 identity, location, catalog, asset, operations, stock, audit, reporting, and ops requests returned 200. |
+| API report export create/download                      | PASS   | Returned HTTP 201/200 and retrieved the generated object from Supabase Storage.                            |
+| API asset attachment upload/download                   | PASS   | Returned HTTP 201/200 and retrieved checksum-stable content from Supabase Storage.                         |
+| Default `pnpm check` with cloud `.env`                 | FAIL   | Localhost CORS assertions used cloud origins and remote Valkey made route parity exceed five seconds.      |
+| Isolated non-DB suite with test CORS/30-second timeout | PASS   | 20 files and 70 tests passed; 11 DB-only files were skipped as intended.                                   |
+| Showcase seed integration test with cloud timeout      | PASS   | One DB test passed after three idempotent seed executions against Supabase.                                |
+| `pnpm build:api`                                       | PASS   | Fastify API TypeScript build completed successfully.                                                       |
+| `pnpm check:forbidden`                                 | PASS   | Forbidden dependency check passed.                                                                         |

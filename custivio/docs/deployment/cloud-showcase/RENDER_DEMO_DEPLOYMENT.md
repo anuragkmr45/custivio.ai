@@ -22,6 +22,8 @@ No Supabase, Upstash, or Cloudinary SDK is added. Cloudinary is not used because
 6. Set `APP_BASE_URL` to the Render API URL and `CORS_ALLOWED_ORIGINS` to the exact deployed frontend origin.
 7. The container start command applies idempotent Drizzle migrations. Render's first-deploy hook then runs the idempotent administrator bootstrap using the `BOOTSTRAP_*` secrets.
 
+For an optional realistic demonstration dataset, follow [SHOWCASE_DATA.md](./SHOWCASE_DATA.md). The showcase seed is deliberately separate from service startup and must be run only against the intended demo database.
+
 ## Embedded worker behavior
 
 Render does not provide a separate free background-worker instance. The embedded loop reuses the same import/export processors, Valkey queues, locks, retries, and dead-letter behavior as the standalone worker.

@@ -30,6 +30,7 @@
     "db:migrate": "pnpm --filter @custivio/db db:migrate",
     "db:seed": "pnpm --filter @custivio/db db:seed",
     "db:seed:uat": "pnpm --filter @custivio/db db:seed:uat",
+    "db:seed:showcase": "pnpm --filter @custivio/db db:seed:showcase",
     "db:bootstrap-admin": "pnpm --filter @custivio/db db:bootstrap-admin",
     "docker:dev": "docker compose -f infra/docker-compose.dev.yml up -d",
     "docker:prod:config": "bash scripts/validate-prod-compose.sh",
