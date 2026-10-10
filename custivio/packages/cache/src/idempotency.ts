@@ -1,6 +1,4 @@
-import { TimeUnit } from "@valkey/valkey-glide";
-
-import { createValkeyClient } from "./valkey-client";
+import { createValkeyClient, TimeUnit } from "./valkey-client";
 
 export type IdempotencyState = "processing" | "completed";
 

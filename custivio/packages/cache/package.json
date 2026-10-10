@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@custivio/config": "workspace:*",
-    "@valkey/valkey-glide": "latest"
+    "ioredis": "latest"
   },
   "devDependencies": {
     "typescript": "5.9.3"

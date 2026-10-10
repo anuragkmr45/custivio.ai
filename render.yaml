@@ -36,6 +36,8 @@ services:
         sync: false
       - key: VALKEY_PORT
         sync: false
+      - key: VALKEY_USERNAME
+        value: default
       - key: VALKEY_PASSWORD
         sync: false
       - key: VALKEY_USE_TLS

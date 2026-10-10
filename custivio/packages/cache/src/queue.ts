@@ -1,8 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { TimeUnit } from "@valkey/valkey-glide";
-
-import { createValkeyClient } from "./valkey-client";
+import { createValkeyClient, TimeUnit } from "./valkey-client";
 
 export interface QueueJob<TPayload = Record<string, unknown>> {
   id: string;

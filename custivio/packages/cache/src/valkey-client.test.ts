@@ -8,10 +8,12 @@ describe("Valkey client configuration", () => {
     const configuration = buildValkeyClientConfiguration(parseEnv({}));
 
     expect(configuration).toMatchObject({
-      addresses: [{ host: "localhost", port: 6379 }],
-      useTLS: false,
+      host: "localhost",
+      port: 6379,
     });
-    expect(configuration.credentials).toBeUndefined();
+    expect(configuration.password).toBeUndefined();
+    expect(configuration.tls).toBeUndefined();
+    expect(configuration.username).toBeUndefined();
   });
 
   it("enables TLS and password authentication for a managed endpoint", () => {
@@ -20,14 +22,17 @@ describe("Valkey client configuration", () => {
         VALKEY_HOST: "example.upstash.io",
         VALKEY_PORT: "6379",
         VALKEY_PASSWORD: "secret-token",
+        VALKEY_USERNAME: "default",
         VALKEY_USE_TLS: "true",
       }),
     );
 
     expect(configuration).toMatchObject({
-      addresses: [{ host: "example.upstash.io", port: 6379 }],
-      credentials: { password: "secret-token" },
-      useTLS: true,
+      host: "example.upstash.io",
+      password: "secret-token",
+      port: 6379,
+      tls: { servername: "example.upstash.io" },
+      username: "default",
     });
   });
 });

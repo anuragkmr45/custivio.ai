@@ -10,10 +10,12 @@ The `cloud/free-tier-deployment` branch is an isolated demonstration target. The
 | API                     | Render Free web service                   | Existing Fastify Docker image                         |
 | Background work         | Embedded in the Render API process        | Existing Valkey queues and processors                 |
 | Database                | Supabase PostgreSQL                       | Standard PostgreSQL URL through Drizzle/`pg`          |
-| Cache and queues        | Upstash                                   | Native Redis TLS through Valkey GLIDE                 |
+| Cache and queues        | Upstash                                   | Native Redis TLS through the cache adapter            |
 | Attachments and exports | Supabase Storage                          | S3-compatible endpoint through the existing S3 client |
 
 No provider SDK replaces the domain, authentication, database, cache, queue, or storage packages.
+
+The cache adapter uses `ioredis` because it supports both local Valkey and Upstash's native TLS endpoint without requiring Upstash's REST SDK. Configure `VALKEY_USERNAME=default` for Upstash.
 
 ## Important limitations
 

@@ -4,6 +4,10 @@ const store = new Map<string, string>();
 const lists = new Map<string, string[]>();
 
 vi.mock("./valkey-client", () => ({
+  TimeUnit: {
+    Milliseconds: "milliseconds",
+    Seconds: "seconds",
+  },
   createValkeyClient: vi.fn(() =>
     Promise.resolve({
       close: vi.fn(),

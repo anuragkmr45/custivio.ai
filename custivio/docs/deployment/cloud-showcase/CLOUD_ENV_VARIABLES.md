@@ -10,6 +10,7 @@ Backend:
 - `DATABASE_SSL=true`
 - `VALKEY_HOST=...`
 - `VALKEY_PORT=6379`
+- `VALKEY_USERNAME=default`
 - `VALKEY_PASSWORD=<managed-service token>`
 - `VALKEY_USE_TLS=true`
 - `MINIO_ENDPOINT=https://...`

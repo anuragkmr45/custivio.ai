@@ -23,7 +23,7 @@ export async function checkValkeyHealth(): Promise<CacheHealth> {
     return {
       ok: response === "PONG",
       latencyMs: Math.round(performance.now() - startedAt),
-      ...(response === "PONG" ? {} : { error: `Unexpected Valkey response: ${String(response)}` }),
+      ...(response === "PONG" ? {} : { error: `Unexpected Valkey response: ${response}` }),
     };
   } catch (error) {
     return {
