@@ -57,7 +57,7 @@ services:
       - key: WORKER_INTERVAL_MS
         value: "30000"
       - key: HEALTHCHECK_TIMEOUT_MS
-        value: "5000"
+        value: "855000"
       - key: OTEL_SERVICE_NAME
         value: custivio-api-cloud-demo
       - key: LOG_LEVEL
